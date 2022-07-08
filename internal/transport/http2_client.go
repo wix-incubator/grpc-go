@@ -1343,11 +1343,7 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 		case "grpc-message":
 			grpcMessage = decodeGrpcMessage(hf.Value)
 		case "grpc-status-details-bin":
-			var err error
-			statusGen, err = decodeGRPCStatusDetails(hf.Value)
-			if err != nil {
-				headerError = fmt.Sprintf("transport: malformed grpc-status-details-bin: %v", err)
-			}
+			mdata[hf.Name] = append(mdata[hf.Name], hf.Value)
 		case ":status":
 			if hf.Value == "200" {
 				httpStatusErr = ""
