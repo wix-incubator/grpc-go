@@ -63,11 +63,8 @@ func NewWithProto(code codes.Code, message string, statusProto []string) *Status
 	}
 	return &Status{
 		s: &spb.Status{
-			Code: int32(codes.Internal),
-			Message: fmt.Sprintf(
-				"grpc-status-details-bin mismatch: grpc-status=%v, grpc-message=%q, grpc-status-details-bin=%+v",
-				code, message, st,
-			),
+			Code:    int32(code),
+			Message: message,
 		},
 	}
 }
